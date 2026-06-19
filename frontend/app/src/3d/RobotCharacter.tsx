@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 export default function RobotCharacter() {
   const { interact, dismissMessage, currentMessage, currentMood, clicks } = useCompanion();
   const [hovered, setHovered] = useState(false);
-  const { camera, size } = useThree();
+  const { camera } = useThree();
   const groupRef = useRef<THREE.Group>(null);
   const headRef = useRef<THREE.Group>(null);
   const leftArmRef = useRef<THREE.Group>(null);
@@ -56,13 +56,7 @@ export default function RobotCharacter() {
     metalness: 0.8,
   }), []);
 
-  const glowWhite = useMemo(() => new THREE.MeshStandardMaterial({
-    color: '#ffffff',
-    emissive: '#ffffff',
-    emissiveIntensity: 1,
-    roughness: 0.1,
-    metalness: 0.0,
-  }), []);
+
 
   const wireMat = useMemo(() => new THREE.MeshBasicMaterial({
     color: '#00FFFF',

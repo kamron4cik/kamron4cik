@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Mood, ACHIEVEMENTS, Achievement, GREETINGS, JOKES, FACTS, QUOTES, SPECIAL_INTERACTIONS } from '../lib/companionData';
+import { ACHIEVEMENTS, GREETINGS, JOKES, FACTS, QUOTES, SPECIAL_INTERACTIONS } from '../lib/companionData';
+import type { Mood, Achievement } from '../lib/companionData';
 
 interface CompanionState {
   clicks: number;
