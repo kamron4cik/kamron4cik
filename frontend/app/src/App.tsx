@@ -13,6 +13,7 @@ import ProjectsSection from '@/sections/ProjectsSection';
 import CertificationsSection from '@/sections/CertificationsSection';
 import ContactSection from '@/sections/ContactSection';
 import FooterSection from '@/sections/FooterSection';
+import CompanionToasts from '@/components/CompanionToasts';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -96,6 +97,9 @@ function App() {
     <div className="relative min-h-screen" style={{ backgroundColor: '#060B1A' }}>
       {/* Loading Screen */}
       <LoadingScreen isVisible={isLoading} progress={progress} />
+
+      {/* AI Companion Achievement Toasts */}
+      <CompanionToasts />
 
       {/* Main Content */}
       <main className={phase === 'exited' ? 'opacity-100' : 'opacity-0'}>

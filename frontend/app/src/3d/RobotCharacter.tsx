@@ -1,8 +1,13 @@
-import { useRef, useMemo, useState } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import * as THREE from 'three';
+import { useCompanion } from '@/hooks/useCompanion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function RobotCharacter() {
+  const { interact, dismissMessage, currentMessage, currentMood, clicks } = useCompanion();
+  const [hovered, setHovered] = useState(false);
   const { camera, size } = useThree();
   const groupRef = useRef<THREE.Group>(null);
   const headRef = useRef<THREE.Group>(null);
@@ -72,6 +77,15 @@ export default function RobotCharacter() {
     emissive: '#00FFFF',
     emissiveIntensity: 4,
   }), []);
+
+  // Auto-dismiss message after reading time
+  useEffect(() => {
+    if (currentMessage) {
+      const readingTime = Math.min(Math.max(currentMessage.length * 60, 3000), 8000);
+      const timer = setTimeout(dismissMessage, readingTime);
+      return () => clearTimeout(timer);
+    }
+  }, [currentMessage, dismissMessage]);
 
   useFrame((state, delta) => {
     timeRef.current += delta;
@@ -153,16 +167,120 @@ export default function RobotCharacter() {
     if (eyeRightRef.current) eyeRightRef.current.scale.y = eyeScale;
 
     // --- EMISSIVE PULSE on glow parts ---
-    glowCyan.emissiveIntensity = 2 + Math.sin(t * 2.1) * 0.8;
-    glowLime.emissiveIntensity = 2.5 + Math.sin(t * 3.0) * 1.0;
-    glowPink.emissiveIntensity = 1.5 + Math.sin(t * 1.7) * 0.7;
+    let targetCyan = 2.5;
+    let targetLime = 3;
+    let targetPink = 2;
+
+    if (currentMood === 'excited' || currentMood === 'happy') {
+      // Faster, brighter pulse, slight vibration in head
+      targetLime = 4 + Math.sin(t * 8) * 1.5;
+      targetCyan = 3 + Math.sin(t * 5) * 1.0;
+      if (headRef.current && currentMood === 'excited') {
+        headRef.current.position.y = 1.65 + Math.sin(t * 20) * 0.02;
+      }
+    } else if (currentMood === 'thinking') {
+      // Slow, deep pulse
+      targetLime = 1.5 + Math.sin(t * 1) * 0.5;
+      targetCyan = 4 + Math.sin(t * 2) * 1.0;
+    } else if (currentMood === 'inspiring') {
+      // Bright heart core
+      targetLime = 6 + Math.sin(t * 4) * 1.0;
+      targetPink = 4 + Math.sin(t * 3) * 1.0;
+    } else {
+      // Neutral
+      targetCyan = 2 + Math.sin(t * 2.1) * 0.8;
+      targetLime = 2.5 + Math.sin(t * 3.0) * 1.0;
+      targetPink = 1.5 + Math.sin(t * 1.7) * 0.7;
+    }
+
+    // Reset head position if not vibrating
+    if (headRef.current && currentMood !== 'excited') {
+      headRef.current.position.y = THREE.MathUtils.lerp(headRef.current.position.y, 1.65, 0.1);
+    }
+
+    // Smoothly transition intensities
+    glowCyan.emissiveIntensity = THREE.MathUtils.lerp(glowCyan.emissiveIntensity, targetCyan, 0.1);
+    glowLime.emissiveIntensity = THREE.MathUtils.lerp(glowLime.emissiveIntensity, targetLime, 0.1);
+    glowPink.emissiveIntensity = THREE.MathUtils.lerp(glowPink.emissiveIntensity, targetPink, 0.1);
   });
 
   return (
-    <group ref={groupRef} position={[0, -0.3, 0]}>
+    <group 
+      ref={groupRef} 
+      position={[0, -0.3, 0]}
+      onClick={(e) => {
+        e.stopPropagation();
+        interact();
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = 'default';
+      }}
+    >
 
       {/* ===== HEAD ===== */}
       <group ref={headRef} position={[0, 1.65, 0]}>
+        
+        {/* Speech Bubble */}
+        <Html position={[0.4, 0.6, 0]} center zIndexRange={[100, 0]}>
+          <div className="flex flex-col items-start select-none">
+            <AnimatePresence>
+              {currentMessage && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5, x: -20, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 10 }}
+                  transition={{ type: 'spring', damping: 15, stiffness: 200 }}
+                  className="relative glass-card px-4 py-3 rounded-2xl shadow-2xl max-w-[280px] min-w-[150px] text-center pointer-events-none"
+                  style={{
+                    background: 'rgba(10, 20, 40, 0.9)',
+                    border: '1px solid rgba(0, 212, 255, 0.4)',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 212, 255, 0.25)',
+                  }}
+                >
+                  <p className="font-body text-sm font-medium text-white leading-relaxed">
+                    {currentMessage}
+                  </p>
+                  {/* Pointer tail */}
+                  <div 
+                    className="absolute bottom-[-6px] left-6 w-3 h-3"
+                    style={{
+                      background: 'rgba(10, 20, 40, 0.9)',
+                      borderBottom: '1px solid rgba(0, 212, 255, 0.4)',
+                      borderRight: '1px solid rgba(0, 212, 255, 0.4)',
+                      transform: 'rotate(45deg)',
+                    }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Hover prompt */}
+            <AnimatePresence>
+              {!currentMessage && hovered && clicks === 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  className="px-3 py-1.5 rounded-full font-display text-[10px] font-bold text-[#CCFF00] tracking-widest whitespace-nowrap pointer-events-none"
+                  style={{
+                    background: 'rgba(10, 20, 40, 0.85)',
+                    border: '1px solid rgba(204, 255, 0, 0.3)',
+                    boxShadow: '0 0 15px rgba(204, 255, 0, 0.2)',
+                  }}
+                >
+                  CLICK ME!
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </Html>
+
         {/* Head shell */}
         <mesh material={bodyMat}>
           <boxGeometry args={[0.42, 0.46, 0.38]} />
