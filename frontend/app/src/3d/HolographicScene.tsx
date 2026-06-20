@@ -69,9 +69,11 @@ export default function HolographicScene({ onReady }: HolographicSceneProps) {
   return (
     <div className="absolute inset-0 z-0">
       <Canvas
+        dpr={[1, 1.5]}
         camera={{ position: [0, 1.5, 4], fov: 45 }}
         gl={{
-          antialias: true,
+          antialias: false,
+          powerPreference: "high-performance",
           alpha: true,
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.2,
