@@ -1,6 +1,7 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Send, Mail, Heart } from 'lucide-react';
+import { useLang } from '@/context/LangContext';
 
 const links = [
   { href: 'https://github.com/kamron4cik', icon: Github, label: 'GitHub' },
@@ -10,6 +11,7 @@ const links = [
 ];
 
 export default function FooterSection() {
+  const { t } = useLang();
   const ref = useScrollReveal<HTMLElement>({ y: 16, duration: 0.5 });
 
   return (
@@ -60,7 +62,7 @@ export default function FooterSection() {
 
         {/* Copyright */}
         <p className="font-body text-xs font-light text-center flex flex-wrap items-center justify-center gap-1.5" style={{ color: 'rgba(240, 237, 248, 0.3)' }}>
-          © 2025 Kamronbek Jumanov · Built with
+          © 2025 Kamronbek Jumanov · {t.footer.built}
           <span className="gradient-text font-medium">React, Three.js</span>
           &amp; <Heart size={11} className="inline" style={{ color: '#F59E0B', fill: '#F59E0B' }} /> coffee
         </p>

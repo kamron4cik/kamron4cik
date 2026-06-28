@@ -2,6 +2,7 @@ import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
 import { Code2, Layers, Zap } from 'lucide-react';
+import { useLang } from '@/context/LangContext';
 
 const stats = [
   { value: '2+', label: 'Years Coding', icon: <Code2 size={16} /> },
@@ -10,6 +11,7 @@ const stats = [
 ];
 
 export default function AboutSection() {
+  const { t } = useLang();
   const photoRef = useScrollReveal<HTMLDivElement>({ x: -50, y: 0, duration: 0.9 });
   const textRef = useScrollReveal<HTMLDivElement>({ x: 50, y: 0, duration: 0.9, delay: 0.15 });
   const statsRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.7, delay: 0.35 });
@@ -40,7 +42,7 @@ export default function AboutSection() {
       />
 
       <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="About Me" subtitle="Who I Am" />
+        <SectionLabel label={t.about.label} subtitle={t.about.subtitle} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mt-2">
           {/* Photo */}
@@ -102,10 +104,7 @@ export default function AboutSection() {
                 "
               </div>
               <p className="font-body text-base md:text-[17px] font-light leading-[1.8]" style={{ color: 'rgba(240, 237, 248, 0.75)' }}>
-                Hello! I'm <span className="violet-text font-medium">Kamronbek Jumanov</span>, a Software Engineering student at{' '}
-                <span className="amber-text font-medium">Inha University in Tashkent</span> with a passion for AI and backend development.
-                I specialize in building intelligent systems that solve real-world problems. Currently focused on AI integration and robust backend infrastructure.
-                When I'm not coding, I'm exploring new technologies, contributing to open-source, or envisioning the next big startup idea.
+                {t.about.description}
               </p>
             </div>
 

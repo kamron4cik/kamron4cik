@@ -1,6 +1,7 @@
 import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
+import { useLang } from '@/context/LangContext';
 
 const education = [
   {
@@ -33,6 +34,7 @@ const education = [
 ];
 
 export default function EducationSection() {
+  const { t } = useLang();
   const timelineRef = useScrollReveal<HTMLDivElement>({
     y: 40,
     stagger: 0.15,
@@ -64,8 +66,8 @@ export default function EducationSection() {
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="Education" subtitle="Academic Background" />
+      <div className="max-w-[1000px] mx-auto px-5 md:px-10 relative z-10">
+        <SectionLabel label={t.education.label} subtitle={t.education.subtitle} />
 
         <div ref={timelineRef} className="relative flex flex-col gap-0 mt-2">
           {/* Vertical timeline line */}

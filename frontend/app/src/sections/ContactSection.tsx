@@ -1,8 +1,10 @@
 import SectionLabel from '@/components/SectionLabel';
 import HolographicTerminal from '@/components/HolographicTerminal';
 import { motion } from 'framer-motion';
+import { useLang } from '@/context/LangContext';
 
 export default function ContactSection() {
+  const { t } = useLang();
   return (
     <section id="contact" className="w-full py-20 md:py-28 relative" style={{ backgroundColor: '#0A0A0F' }}>
       {/* Aurora blobs */}
@@ -35,7 +37,7 @@ export default function ContactSection() {
       />
 
       <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="Contact" subtitle="Get In Touch" />
+        <SectionLabel label={t.contact.label} subtitle={t.contact.subtitle} />
 
         {/* CTA headline */}
         <motion.div
@@ -46,11 +48,12 @@ export default function ContactSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="font-display text-3xl md:text-4xl font-bold text-white leading-tight mb-3">
-            Let's build something{' '}
-            <span className="aurora-text">remarkable</span> together.
+            {t.contact.headline.split('remarkable')[0]}
+            <span className="aurora-text">remarkable</span>
+            {t.contact.headline.split('remarkable')[1]}
           </h2>
           <p className="font-body text-base font-light" style={{ color: 'rgba(240, 237, 248, 0.55)' }}>
-            I'm open to internships, freelance projects, and full-time opportunities. Type a command below to connect.
+            {t.contact.sub}
           </p>
         </motion.div>
 

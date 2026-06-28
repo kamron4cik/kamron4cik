@@ -5,12 +5,14 @@ import SocialLinks from '@/components/SocialLinks';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import HolographicScene from '@/3d/HolographicScene';
 import { Download, Sparkles } from 'lucide-react';
+import { useLang } from '@/context/LangContext';
 
 interface HeroSectionProps {
   isActive: boolean;
 }
 
 export default function HeroSection({ isActive }: HeroSectionProps) {
+  const { t } = useLang();
   const [sceneReady, setSceneReady] = useState(false);
   const [cvHovered, setCvHovered] = useState(false);
 
@@ -21,7 +23,7 @@ export default function HeroSection({ isActive }: HeroSectionProps) {
   });
 
   const roleTyping = useTypewriter({
-    text: 'Software Engineering Student  ·  AI Enthusiast  ·  Backend Developer',
+    text: t.hero.role,
     speed: 35,
     enabled: isActive && nameTyping.isComplete,
   });
@@ -139,7 +141,7 @@ export default function HeroSection({ isActive }: HeroSectionProps) {
               >
                 <Download size={15} />
               </motion.span>
-              <span>Download CV</span>
+              <span>{t.hero.cv}</span>
               <motion.span
                 animate={{ rotate: cvHovered ? 360 : 0, opacity: cvHovered ? 1 : 0.5 }}
                 transition={{ duration: 0.5 }}

@@ -1,6 +1,7 @@
 import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
+import { useLang } from '@/context/LangContext';
 
 const experiences = [
   {
@@ -38,6 +39,7 @@ const experiences = [
 ];
 
 export default function ExperienceSection() {
+  const { t } = useLang();
   const timelineRef = useScrollReveal<HTMLDivElement>({
     y: 40,
     stagger: 0.15,
@@ -58,10 +60,10 @@ export default function ExperienceSection() {
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="Experience" subtitle="Where I've Worked" />
+      <div className="max-w-[1000px] mx-auto px-5 md:px-10 relative z-10">
+        <SectionLabel label={t.experience.label} subtitle={t.experience.subtitle} />
 
-        <div ref={timelineRef} className="relative flex flex-col gap-0 mt-2">
+        <div ref={timelineRef} className="relative mt-16 pl-6 md:pl-0 flex flex-col gap-0 mt-2">
           {/* Vertical timeline line */}
           <div className="timeline-line" />
 

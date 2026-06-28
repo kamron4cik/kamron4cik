@@ -115,7 +115,7 @@ export default function LoadingScreen({ isVisible, progress }: LoadingScreenProp
                 className="font-mono text-xs tabular-nums"
                 style={{ color: 'rgba(240, 237, 248, 0.35)' }}
               >
-                {progress.toString().padStart(3, '0')}%
+                {progress}%
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
+import { useLang } from '@/context/LangContext';
 import {
   Server,
   Code2,
@@ -44,6 +45,7 @@ const skillCategories = [
 ];
 
 export default function SkillsSection() {
+  const { t } = useLang();
   const gridRef = useScrollReveal<HTMLDivElement>({
     y: 30,
     stagger: 0.12,
@@ -64,13 +66,13 @@ export default function SkillsSection() {
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="Skills" subtitle="Technical Expertise" />
+      <div className="max-w-[1000px] mx-auto px-5 md:px-10 relative z-10">
+        <SectionLabel label={t.skills.label} subtitle={t.skills.subtitle} />
 
         {/* Bento grid */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-2 auto-rows-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2"
         >
           {skillCategories.map((cat) => (
             <motion.div

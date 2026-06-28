@@ -3,6 +3,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Github, ExternalLink, Gamepad2, Lock } from 'lucide-react';
 import { useRef } from 'react';
+import { useLang } from '@/context/LangContext';
 
 const projects = [
   {
@@ -89,6 +90,7 @@ function TiltCard({ children, className, style }: { children: React.ReactNode; c
 }
 
 export default function ProjectsSection() {
+  const { t } = useLang();
   const gridRef = useScrollReveal<HTMLDivElement>({
     y: 50,
     stagger: 0.18,
@@ -124,9 +126,9 @@ export default function ProjectsSection() {
       />
 
       <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="Projects" subtitle="Things I've Built" />
+        <SectionLabel label={t.projects.label} subtitle={t.projects.subtitle} />
 
-        <div ref={gridRef} className="flex flex-col gap-8 mt-2">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
           {/* Featured project */}
           <TiltCard className="project-card">
             <div

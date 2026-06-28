@@ -2,6 +2,7 @@ import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
+import { useLang } from '@/context/LangContext';
 
 const certificates = [
   { title: 'SQL (Basic)', issuer: 'HackerRank', date: '2024', logo: '/assets/logo-hackerrank.png', level: 1 },
@@ -25,6 +26,7 @@ const levelLabel: Record<number, string> = {
 };
 
 export default function CertificationsSection() {
+  const { t } = useLang();
   const gridRef = useScrollReveal<HTMLDivElement>({
     scale: 0.92,
     y: 24,
@@ -47,7 +49,7 @@ export default function CertificationsSection() {
       />
 
       <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="Certifications" subtitle="Verified Skills" />
+        <SectionLabel label={t.certifications.label} subtitle={t.certifications.subtitle} />
 
         <div
           ref={gridRef}
