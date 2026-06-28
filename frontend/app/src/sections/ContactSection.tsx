@@ -48,9 +48,9 @@ export default function ContactSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="font-display text-3xl md:text-4xl font-bold text-white leading-tight mb-3">
-            {t.contact.headline.split('remarkable')[0]}
-            <span className="aurora-text">remarkable</span>
-            {t.contact.headline.split('remarkable')[1]}
+            {t.contact.headline.start}
+            <span className="aurora-text">{t.contact.headline.highlight}</span>
+            {t.contact.headline.end}
           </h2>
           <p className="font-body text-base font-light" style={{ color: 'rgba(240, 237, 248, 0.55)' }}>
             {t.contact.sub}

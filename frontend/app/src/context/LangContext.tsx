@@ -45,7 +45,11 @@ const TRANSLATIONS: Record<Lang, Translations> = {
     contact: {
       label: 'Contact',
       subtitle: 'Get In Touch',
-      headline: "Let's build something remarkable together.",
+      headline: {
+        start: "Let's build something ",
+        highlight: "remarkable",
+        end: " together.",
+      },
       sub: "I'm open to internships, freelance projects, and full-time opportunities. Type a command below to connect.",
     },
     footer: { built: 'Built with' },
@@ -78,7 +82,11 @@ const TRANSLATIONS: Record<Lang, Translations> = {
     contact: {
       label: 'Контакты',
       subtitle: 'Связаться',
-      headline: 'Давайте создадим что-то выдающееся вместе.',
+      headline: {
+        start: 'Давайте создадим что-то ',
+        highlight: 'выдающееся',
+        end: ' вместе.',
+      },
       sub: 'Открыт для стажировок, фриланс-проектов и постоянной работы. Введите команду ниже для связи.',
     },
     footer: { built: 'Создано с помощью' },
@@ -111,7 +119,11 @@ const TRANSLATIONS: Record<Lang, Translations> = {
     contact: {
       label: 'Aloqa',
       subtitle: 'Bog\'lanish',
-      headline: 'Keling, birgalikda ajoyib narsa yarataylik.',
+      headline: {
+        start: 'Keling, birgalikda ',
+        highlight: 'ajoyib narsa',
+        end: ' yarataylik.',
+      },
       sub: 'Amaliyot, frilanser loyihalar va doimiy ish uchun ochiqman. Bog\'lanish uchun quyidagi buyruqni kiriting.',
     },
     footer: { built: 'Quyidagi texnologiyalar bilan yaratildi' },
