@@ -1,7 +1,7 @@
 import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
-import { CheckCircle2, ExternalLink } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 const certificates = [
   { title: 'SQL (Basic)', issuer: 'HackerRank', date: '2024', logo: '/assets/logo-hackerrank.png', level: 1 },

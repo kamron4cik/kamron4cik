@@ -1,7 +1,6 @@
 import SectionLabel from '@/components/SectionLabel';
 import HolographicTerminal from '@/components/HolographicTerminal';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 
 export default function ContactSection() {
   return (

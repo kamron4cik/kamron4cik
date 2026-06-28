@@ -1,7 +1,6 @@
 import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
-import { GraduationCap } from 'lucide-react';
 
 const education = [
   {

@@ -2,9 +2,10 @@ import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { motion } from 'framer-motion';
 import {
-  Server, Code2, Database, Globe, Container,
-  Cloud, Shield, Terminal, Cpu, Lock, Bug,
-  Workflow, Braces, FileCode, Layers,
+  Server,
+  Code2,
+  Container,
+  Shield,
 } from 'lucide-react';
 
 const skillCategories = [
@@ -71,7 +72,7 @@ export default function SkillsSection() {
           ref={gridRef}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-2 auto-rows-auto"
         >
-          {skillCategories.map((cat, i) => (
+          {skillCategories.map((cat) => (
             <motion.div
               key={cat.name}
               className={`bento-item bento-card ${cat.large ? 'lg:col-span-2' : 'lg:col-span-1'}`}
