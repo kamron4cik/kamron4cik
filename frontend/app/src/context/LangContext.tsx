@@ -12,7 +12,7 @@ interface Translations {
   skills: { label: string; subtitle: string };
   projects: { label: string; subtitle: string };
   certifications: { label: string; subtitle: string };
-  contact: { label: string; subtitle: string; headline: string; sub: string };
+  contact: { label: string; subtitle: string; headline: { start: string; highlight: string; end: string }; sub: string };
   footer: { built: string };
 }
 
