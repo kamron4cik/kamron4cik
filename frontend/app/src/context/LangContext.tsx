@@ -121,7 +121,7 @@ const TRANSLATIONS: Record<Lang, Translations> = {
       subtitle: 'Bog\'lanish',
       headline: {
         start: 'Keling, birgalikda ',
-        highlight: 'ajoyib narsa',
+        highlight: 'ajoyib loyihalar',
         end: ' yarataylik.',
       },
       sub: 'Amaliyot, frilanser loyihalar va doimiy ish uchun ochiqman. Bog\'lanish uchun quyidagi buyruqni kiriting.',
