@@ -1,107 +1,132 @@
 import SectionLabel from '@/components/SectionLabel';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import SkillTag from '@/components/SkillTag';
+import { motion } from 'framer-motion';
 import {
-  Server,
-  Code2,
-  Database,
-  Globe,
-  Container,
-  Cloud,
-  Shield,
-  Terminal,
-  Cpu,
-  Lock,
-  Bug,
-  Workflow,
-  Braces,
-  FileCode,
-  Layers,
+  Server, Code2, Database, Globe, Container,
+  Cloud, Shield, Terminal, Cpu, Lock, Bug,
+  Workflow, Braces, FileCode, Layers,
 } from 'lucide-react';
 
 const skillCategories = [
   {
-    name: 'Backend Development',
-    skills: [
-      { name: 'Java', icon: <Braces size={16} /> },
-      { name: 'Spring Boot', icon: <Server size={16} /> },
-      { name: 'REST API', icon: <Globe size={16} /> },
-      { name: 'PostgreSQL', icon: <Database size={16} /> },
-      { name: 'MySQL', icon: <Database size={16} /> },
-    ],
+    name: 'Backend',
+    description: 'Server-side systems',
+    icon: <Server size={20} />,
+    color: '#A78BFA',
+    skills: ['Java', 'Spring Boot', 'REST API', 'PostgreSQL', 'MySQL'],
+    large: true,
   },
   {
-    name: 'Programming Languages',
-    skills: [
-      { name: 'Java', icon: <FileCode size={16} /> },
-      { name: 'Python', icon: <Code2 size={16} /> },
-      { name: 'C++', icon: <Cpu size={16} /> },
-      { name: 'SQL', icon: <Database size={16} /> },
-    ],
+    name: 'Languages',
+    description: 'What I write in',
+    icon: <Code2 size={20} />,
+    color: '#F59E0B',
+    skills: ['Java', 'Python', 'C++', 'SQL'],
+    large: false,
   },
   {
     name: 'DevOps & Tools',
-    skills: [
-      { name: 'Docker', icon: <Container size={16} /> },
-      { name: 'Terraform', icon: <Layers size={16} /> },
-      { name: 'Ansible', icon: <Terminal size={16} /> },
-      { name: 'CI/CD', icon: <Workflow size={16} /> },
-      { name: 'Linux', icon: <Terminal size={16} /> },
-    ],
+    description: 'Ship & automate',
+    icon: <Container size={20} />,
+    color: '#34D399',
+    skills: ['Docker', 'Terraform', 'Ansible', 'CI/CD', 'Linux'],
+    large: false,
   },
   {
-    name: 'Cybersecurity & Cloud',
-    skills: [
-      { name: 'OSINT', icon: <Shield size={16} /> },
-      { name: 'Cryptography', icon: <Lock size={16} /> },
-      { name: 'Ethical Hacking', icon: <Bug size={16} /> },
-      { name: 'AWS', icon: <Cloud size={16} /> },
-      { name: 'Azure', icon: <Cloud size={16} /> },
-      { name: 'Cloud Infrastructure', icon: <Server size={16} /> },
-    ],
+    name: 'Security & Cloud',
+    description: 'Protect & scale',
+    icon: <Shield size={20} />,
+    color: '#FB7185',
+    skills: ['OSINT', 'Cryptography', 'Ethical Hacking', 'AWS', 'Azure'],
+    large: true,
   },
 ];
 
 export default function SkillsSection() {
   const gridRef = useScrollReveal<HTMLDivElement>({
     y: 30,
-    stagger: 0.15,
-    childSelector: '.skill-category',
+    stagger: 0.12,
+    childSelector: '.bento-item',
   });
 
   return (
-    <section className="w-full py-16 md:py-24 section-bg-gradient relative">
+    <section id="skills" className="w-full py-20 md:py-28 section-bg-gradient relative">
       {/* Grid overlay */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0, 212, 255, 0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 255, 0.5) 1px, transparent 1px)
+            linear-gradient(rgba(167, 139, 250, 0.5) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(167, 139, 250, 0.5) 1px, transparent 1px)
           `,
-          backgroundSize: '40px 40px',
+          backgroundSize: '48px 48px',
         }}
       />
 
       <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="SKILLS" />
+        <SectionLabel label="Skills" subtitle="Technical Expertise" />
 
+        {/* Bento grid */}
         <div
           ref={gridRef}
-          className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-2 auto-rows-auto"
         >
-          {skillCategories.map((category) => (
-            <div key={category.name} className="skill-category">
-              <h3 className="font-display text-lg md:text-xl font-semibold text-white mb-6 relative">
-                {category.name}
-                <span className="absolute bottom-[-8px] left-0 w-10 h-0.5 bg-[#00D4FF]" />
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill) => (
-                  <SkillTag key={skill.name} name={skill.name} icon={skill.icon} />
+          {skillCategories.map((cat, i) => (
+            <motion.div
+              key={cat.name}
+              className={`bento-item bento-card ${cat.large ? 'lg:col-span-2' : 'lg:col-span-1'}`}
+              whileHover={{ y: -4 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 22 }}
+            >
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-5">
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background: `${cat.color}14`,
+                    border: `1px solid ${cat.color}30`,
+                    color: cat.color,
+                  }}
+                >
+                  {cat.icon}
+                </div>
+                <div>
+                  <div className="font-display text-base font-semibold text-white">{cat.name}</div>
+                  <div className="font-body text-xs" style={{ color: 'rgba(240, 237, 248, 0.45)' }}>
+                    {cat.description}
+                  </div>
+                </div>
+              </div>
+
+              {/* Skill tags */}
+              <div className="flex flex-wrap gap-2">
+                {cat.skills.map((skill) => (
+                  <motion.span
+                    key={skill}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs font-light cursor-default select-none"
+                    style={{
+                      background: `${cat.color}0d`,
+                      border: `1px solid ${cat.color}28`,
+                      color: 'rgba(240, 237, 248, 0.8)',
+                    }}
+                    whileHover={{
+                      background: `${cat.color}1a`,
+                      borderColor: `${cat.color}55`,
+                      color: '#fff',
+                      scale: 1.04,
+                    }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {/* Dot indicator */}
+                    <span
+                      className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                      style={{ background: cat.color, opacity: 0.8 }}
+                    />
+                    {skill}
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

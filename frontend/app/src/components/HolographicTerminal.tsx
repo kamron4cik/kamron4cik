@@ -97,16 +97,18 @@ export default function HolographicTerminal() {
       ref={terminalRef}
       className="relative max-w-[700px] mx-auto rounded-2xl p-8 overflow-hidden scanlines"
       style={{
-        background: 'rgba(15, 27, 49, 0.8)',
-        backdropFilter: 'blur(16px)',
-        boxShadow: '0 0 30px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(0, 212, 255, 0.1)',
+        background: 'rgba(19, 17, 28, 0.85)',
+        backdropFilter: 'blur(20px)',
+        border: '1px solid rgba(167, 139, 250, 0.15)',
+        boxShadow: '0 0 40px rgba(124, 58, 237, 0.18), inset 0 0 20px rgba(167, 139, 250, 0.05)',
       }}
     >
+      {/* Animated border gradient */}
       <div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{
-          padding: '2px',
-          background: 'linear-gradient(90deg, #00D4FF, #9B59B6, #FF007F, #00D4FF)',
+          padding: '1.5px',
+          background: 'linear-gradient(90deg, #A78BFA, #C084FC, #F59E0B, #A78BFA)',
           backgroundSize: '300% 300%',
           animation: 'gradientRotate 4s linear infinite',
           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
@@ -122,24 +124,27 @@ export default function HolographicTerminal() {
       </div>
 
       {showWelcome && (
-        <div className="mb-6 font-body text-sm font-light text-white/70">
-          <span className="text-[#CCFF00] mr-2">&gt;</span>
+        <div className="mb-6 font-mono text-sm font-light" style={{ color: 'rgba(240, 237, 248, 0.65)' }}>
+          <span className="mr-2" style={{ color: '#F59E0B' }}>&gt;</span>
           {welcome.displayText}
           {welcome.showCursor && (
-            <span className="text-[#CCFF00] animate-blink-cursor">_</span>
+            <span className="animate-blink-cursor" style={{ color: '#F59E0B' }}>_</span>
           )}
         </div>
       )}
 
       {showCommands && (
-        <div className="flex flex-wrap gap-6 mb-6">
+        <div className="flex flex-wrap gap-5 mb-6">
           {COMMANDS.map((cmd, index) => (
             <button
               key={cmd.name}
               onClick={() => handleCommand(index)}
-              className="font-display text-sm font-medium text-[#CCFF00] cursor-pointer hover:text-[#FF007F] transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(255,0,127,0.5)]"
+              className="font-mono text-sm font-medium transition-all duration-300"
+              style={{ color: '#A78BFA' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = '#F59E0B'; (e.currentTarget as HTMLButtonElement).style.filter = 'drop-shadow(0 0 8px rgba(245, 158, 11, 0.5))'; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = '#A78BFA'; (e.currentTarget as HTMLButtonElement).style.filter = 'none'; }}
             >
-              <span className="mr-1">&gt;</span>
+              <span className="mr-1" style={{ color: '#F59E0B' }}>&gt;</span>
               {cmd.name}
             </button>
           ))}
@@ -147,9 +152,9 @@ export default function HolographicTerminal() {
       )}
 
       {activeCommand !== null && (
-        <div className="font-body text-sm">
+        <div className="font-mono text-sm">
           {!commandType.isComplete && (
-            <div className="text-[#CCFF00] mb-2">
+            <div className="mb-2" style={{ color: '#F59E0B' }}>
               <span className="mr-2">&gt;</span>
               {commandType.displayText}
               {commandType.showCursor && (
@@ -159,10 +164,10 @@ export default function HolographicTerminal() {
           )}
 
           {commandType.isComplete && (
-            <div className="text-white/80">
+            <div style={{ color: 'rgba(240, 237, 248, 0.75)' }}>
               {responseType.displayText}
               {responseType.showCursor && !responseType.isComplete && (
-                <span className="text-[#CCFF00] animate-blink-cursor">_</span>
+                <span className="animate-blink-cursor" style={{ color: '#F59E0B' }}>_</span>
               )}
               {responseType.isComplete && (
                 <div className="mt-2">
@@ -170,7 +175,10 @@ export default function HolographicTerminal() {
                     href={COMMANDS[activeCommand].link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#00D4FF] underline hover:text-[#00FFFF] hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.5)] transition-all"
+                    className="underline transition-all"
+                    style={{ color: '#A78BFA' }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#C084FC'; (e.currentTarget as HTMLAnchorElement).style.filter = 'drop-shadow(0 0 8px rgba(167, 139, 250, 0.5))'; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#A78BFA'; (e.currentTarget as HTMLAnchorElement).style.filter = 'none'; }}
                   >
                     {COMMANDS[activeCommand].linkText}
                   </a>
@@ -182,7 +190,7 @@ export default function HolographicTerminal() {
       )}
 
       {activeCommand === null && showCommands && (
-        <div className="text-[#CCFF00] animate-blink-cursor">_</div>
+        <div className="animate-blink-cursor" style={{ color: '#F59E0B' }}>_</div>
       )}
     </div>
   );

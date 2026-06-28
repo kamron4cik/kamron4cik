@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import LoadingScreen from '@/components/LoadingScreen';
+import Navbar from '@/components/Navbar';
 import HeroSection from '@/sections/HeroSection';
 import AboutSection from '@/sections/AboutSection';
 import ExperienceSection from '@/sections/ExperienceSection';
@@ -94,9 +95,12 @@ function App() {
   const isLoading = phase === 'loading' || phase === 'ready';
 
   return (
-    <div className="relative min-h-screen" style={{ backgroundColor: '#060B1A' }}>
+    <div className="relative min-h-screen" style={{ backgroundColor: '#0A0A0F' }}>
       {/* Loading Screen */}
       <LoadingScreen isVisible={isLoading} progress={progress} />
+
+      {/* Sticky Navbar */}
+      {phase === 'exited' && <Navbar />}
 
       {/* AI Companion Achievement Toasts */}
       <CompanionToasts />

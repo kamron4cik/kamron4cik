@@ -1,35 +1,61 @@
 import SectionLabel from '@/components/SectionLabel';
 import HolographicTerminal from '@/components/HolographicTerminal';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 export default function ContactSection() {
   return (
-    <section className="w-full py-16 md:py-24 relative" style={{ backgroundColor: '#060B1A' }}>
-      {/* Grid overlay - more prominent */}
-      <div
-        className="absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(0, 212, 255, 0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 255, 0.5) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-        }}
-      />
-
-      {/* Vignette effect */}
+    <section id="contact" className="w-full py-20 md:py-28 relative" style={{ backgroundColor: '#0A0A0F' }}>
+      {/* Aurora blobs */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 0%, #060B1A 80%)',
+          background: `
+            radial-gradient(ellipse 50% 60% at 50% 0%, rgba(124, 58, 237, 0.08) 0%, transparent 60%),
+            radial-gradient(ellipse 40% 40% at 20% 100%, rgba(245, 158, 11, 0.05) 0%, transparent 60%)
+          `,
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
-        <SectionLabel label="CONTACT" />
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(167, 139, 250, 0.5) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(167, 139, 250, 0.5) 1px, transparent 1px)
+          `,
+          backgroundSize: '48px 48px',
+        }}
+      />
 
-        <div className="mt-10">
-          <HolographicTerminal />
-        </div>
+      {/* Vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, transparent 0%, #0A0A0F 80%)' }}
+      />
+
+      <div className="max-w-[1200px] mx-auto px-5 md:px-10 relative z-10">
+        <SectionLabel label="Contact" subtitle="Get In Touch" />
+
+        {/* CTA headline */}
+        <motion.div
+          className="mb-10 max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-white leading-tight mb-3">
+            Let's build something{' '}
+            <span className="aurora-text">remarkable</span> together.
+          </h2>
+          <p className="font-body text-base font-light" style={{ color: 'rgba(240, 237, 248, 0.55)' }}>
+            I'm open to internships, freelance projects, and full-time opportunities. Type a command below to connect.
+          </p>
+        </motion.div>
+
+        <HolographicTerminal />
       </div>
     </section>
   );

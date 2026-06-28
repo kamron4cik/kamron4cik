@@ -28,15 +28,15 @@ function SceneContent({ onReady }: SceneContentProps) {
 
   return (
     <>
-      <fog attach="fog" args={['#060B1A', 6, 22]} />
+      <fog attach="fog" args={['#0A0A0F', 6, 22]} />
 
-      <ambientLight intensity={0.2} color="#00D4FF" />
-      <hemisphereLight args={['#00D4FF', '#060B1A', 0.35]} />
-      <directionalLight position={[2, 3, 2]} intensity={1.2} color="#ffffff" castShadow />
-      <directionalLight position={[-2, 1, -1]} intensity={0.5} color="#00D4FF" />
-      <pointLight position={[0, 2, -2]} intensity={0.6} color="#FF007F" />
-      {/* Extra fill light from below for holographic look */}
-      <pointLight position={[0, -1, 1]} intensity={0.3} color="#CCFF00" />
+      <ambientLight intensity={0.2} color="#7C3AED" />
+      <hemisphereLight args={['#A78BFA', '#0A0A0F', 0.3]} />
+      <directionalLight position={[2, 3, 2]} intensity={1.1} color="#ffffff" castShadow />
+      <directionalLight position={[-2, 1, -1]} intensity={0.4} color="#A78BFA" />
+      <pointLight position={[0, 2, -2]} intensity={0.5} color="#F59E0B" />
+      {/* Fill light from below — amber for warm floor glow */}
+      <pointLight position={[0, -1, 1]} intensity={0.25} color="#F59E0B" />
 
       <Platform />
 
@@ -45,10 +45,10 @@ function SceneContent({ onReady }: SceneContentProps) {
         args={[20, 20]}
         cellSize={0.5}
         cellThickness={0.5}
-        cellColor="rgba(0, 212, 255, 0.08)"
+        cellColor="rgba(167, 139, 250, 0.07)"
         sectionSize={2}
         sectionThickness={1}
-        sectionColor="rgba(0, 212, 255, 0.15)"
+        sectionColor="rgba(167, 139, 250, 0.13)"
         fadeDistance={15}
         fadeStrength={1.5}
         infiniteGrid
@@ -76,7 +76,7 @@ export default function HolographicScene({ onReady }: HolographicSceneProps) {
           powerPreference: "high-performance",
           alpha: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.2,
+          toneMappingExposure: 1.15,
         }}
         style={{ background: 'transparent' }}
       >
@@ -84,23 +84,23 @@ export default function HolographicScene({ onReady }: HolographicSceneProps) {
           <SceneContent onReady={onReady} />
           <EffectComposer>
             <Bloom
-              intensity={0.7}
-              luminanceThreshold={0.75}
-              luminanceSmoothing={0.5}
+              intensity={0.6}
+              luminanceThreshold={0.7}
+              luminanceSmoothing={0.4}
               mipmapBlur
             />
             <Noise
-              opacity={0.04}
+              opacity={0.035}
               blendFunction={BlendFunction.MULTIPLY}
             />
             <ChromaticAberration
-              offset={[0.001, 0.001]}
+              offset={[0.0008, 0.0008]}
               blendFunction={BlendFunction.NORMAL}
               radialModulation={false}
             />
             <Vignette
-              darkness={0.35}
-              offset={0.3}
+              darkness={0.4}
+              offset={0.35}
               blendFunction={BlendFunction.NORMAL}
             />
           </EffectComposer>
