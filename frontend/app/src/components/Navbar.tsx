@@ -99,7 +99,7 @@ export default function Navbar() {
                   color: isActive ? '#A78BFA' : 'rgba(240,237,248,0.55)',
                   background: isActive ? 'rgba(167,139,250,0.08)' : 'transparent',
                 }}
-                whileHover={{ color: '#A78BFA', background: 'rgba(167,139,250,0.06)' } as object}
+                whileHover={{ color: '#A78BFA', background: 'rgba(167,139,250,0.06)' }}
                 whileTap={{ scale: 0.95 }}
               >
                 {item.label}
@@ -129,7 +129,7 @@ export default function Navbar() {
                 border: '1px solid rgba(167,139,250,0.2)',
                 color: '#A78BFA',
               }}
-              whileHover={{ background: 'rgba(167,139,250,0.14)' } as object}
+              whileHover={{ background: 'rgba(167,139,250,0.14)' }}
               whileTap={{ scale: 0.95 }}
             >
               <span>{LANG_FLAGS[lang].flag}</span>
@@ -167,7 +167,7 @@ export default function Navbar() {
                         color: lang === l ? '#A78BFA' : 'rgba(240,237,248,0.6)',
                         background: lang === l ? 'rgba(167,139,250,0.1)' : 'transparent',
                       }}
-                      whileHover={{ background: 'rgba(167,139,250,0.08)', color: '#ffffff' } as object}
+                      whileHover={{ background: 'rgba(167,139,250,0.08)', color: '#ffffff' }}
                     >
                       <span className="text-base">{LANG_FLAGS[l].flag}</span>
                       <span className="tracking-widest">{LANG_FLAGS[l].label}</span>
@@ -194,7 +194,7 @@ export default function Navbar() {
             whileHover={{
               background: 'linear-gradient(135deg, rgba(167,139,250,0.3), rgba(245,158,11,0.2))',
               boxShadow: '0 0 18px rgba(167,139,250,0.3)',
-            } as object}
+            }}
             whileTap={{ scale: 0.95 }}
           >
             {t.hero.cv} ↓

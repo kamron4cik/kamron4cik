@@ -30,14 +30,12 @@ const ORBIT_CFG = [
 // ─── Easing helpers ───────────────────────────────────────────────────────────
 function eio(t: number) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 function eo(t: number)  { return 1-(1-t)**3; }
-function ei(t: number)  { return t*t*t; }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function RobotCharacter() {
   const { interact, dismissMessage, currentMessage, currentMood, clicks } = useCompanion();
   const [hovered, setHovered] = useState(false);
   const [showHeart, setShowHeart] = useState(false);
-  const [showSymbols, setShowSymbols] = useState(false);
   const { camera } = useThree();
 
   // ─── Body refs ──────────────────────────────────────────────────────────────
@@ -81,7 +79,6 @@ export default function RobotCharacter() {
   const clickProg   = useRef(0);
   const clickIdx    = useRef(0);
   const heartRef    = useRef(false);
-  const symbolsRef  = useRef(false);
 
   // Random special events
   const eventTimer  = useRef(0);
@@ -385,7 +382,6 @@ export default function RobotCharacter() {
         clickAnim.current = null;
         clickProg.current = 0;
         if (heartRef.current) { heartRef.current = false; setShowHeart(false); }
-        if (symbolsRef.current) { symbolsRef.current = false; setShowSymbols(false); }
         if (groupRef.current) {
           groupRef.current.rotation.x = 0;
           groupRef.current.rotation.y = 0;
