@@ -70,7 +70,7 @@ export default function HolographicScene({ onReady }: HolographicSceneProps) {
     <div className="absolute inset-0 z-0">
       <Canvas
         dpr={[1, 1.5]}
-        camera={{ position: [0, 1.5, 4], fov: 45 }}
+        camera={{ position: [0, 2.0, 5], fov: 50 }}
         gl={{
           antialias: false,
           powerPreference: "high-performance",
