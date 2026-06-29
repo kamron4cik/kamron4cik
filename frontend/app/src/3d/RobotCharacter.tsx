@@ -206,13 +206,25 @@ export default function RobotCharacter() {
     if (headRef.current && groupRef.current) {
       const wp = new THREE.Vector3();
       headRef.current.getWorldPosition(wp);
-      const dir = mouseWorld.current.clone().sub(wp).normalize();
-      const cursorY = Math.atan2(dir.x, dir.z) * 0.5;
-      const cursorX = THREE.MathUtils.clamp(-dir.y * 0.3, -0.35, 0.35);
+      
+      const diff = mouseWorld.current.clone().sub(wp);
+      let cursorY = 0;
+      let cursorX = 0;
+      if (diff.lengthSq() > 0.0001) {
+        const dir = diff.normalize();
+        cursorY = Math.atan2(dir.x, dir.z) * 0.5;
+        cursorX = THREE.MathUtils.clamp(-dir.y * 0.3, -0.35, 0.35);
+      }
+      
       const idleY   = lookCurrX.current * 0.4;
       const idleX   = lookCurrY.current * 0.3;
       const tY = THREE.MathUtils.lerp(idleY, cursorY, H);
       const tX = THREE.MathUtils.lerp(idleX, cursorX, H);
+      
+      // Ensure we recover if rotation somehow became NaN previously
+      if (isNaN(headRef.current.rotation.y)) headRef.current.rotation.y = 0;
+      if (isNaN(headRef.current.rotation.x)) headRef.current.rotation.x = 0;
+      
       headRef.current.rotation.y += (tY - headRef.current.rotation.y) * 0.1;
       headRef.current.rotation.x += (tX - headRef.current.rotation.x) * 0.1;
     }
